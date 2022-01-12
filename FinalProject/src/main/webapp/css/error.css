@@ -1,0 +1,26 @@
+@charset "UTF-8";
+.error-main{
+	margin:50px auto;
+	padding:20px;
+	width:40%;
+	border: 1px solid black;
+}
+
+.error-text-box{
+	margin:10px auto;
+	padding:20px;
+}
+
+h1.logo{
+	width:268px;
+	height:30px;
+	text-align: center;
+	line-height:110px;
+}
+
+h1.logo > a {
+	display:block;
+	height:100%;
+	background: url(../img/etc/logo_w268.png) no-repeat;
+	background-size:contain;
+}

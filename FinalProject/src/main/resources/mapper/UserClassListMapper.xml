@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.anotherclass.bitcamp.dao.user.ClassListDAO">
+	<select id="ClassList" resultType="com.anotherclass.bitcamp.vo.user.ClassListVO">
+		<![CDATA[
+		 select a.class_no, a.class_name, a.class_price, a.class_thumb, a.class_tag, b.category_name, c.nick
+		 from classTbl a, category b, membertbl c
+         where a.category_no = b.category_no
+         and a.member_id = c.member_id
+         order by a.class_writedate desc
+		]]>
+	</select>
+	<select id="sortByPrice" resultType="com.anotherclass.bitcamp.vo.user.ClassListVO">
+		<![CDATA[
+		  select a.class_no, a.class_name, a.class_price, a.class_thumb, a.class_addr1,a.class_tag, a.class_content, c.category_name, b.nick
+          from classtbl a, category c, membertbl b
+          where  a.category_no = c.category_no
+          and a.member_id = b.member_id
+          order by class_price asc
+		]]>
+	</select>
+	<select id="sortByApplyDate" resultType="com.anotherclass.bitcamp.vo.user.ClassListVO">
+		<![CDATA[
+		  select a.class_no, a.class_name, a.class_price, a.class_thumb, a.class_addr1,a.class_tag, a.class_content,
+		  to_char(b.start_date,'yyyy-MM-DD') start_date, c.category_name, d.nick
+          from classtbl a, classoption b, category c, membertbl d
+          where a.class_no = b.class_no
+          and a.category_no = c.category_no
+          and a.member_id = d.member_id
+          order by start_date asc
+		]]>
+	</select>
+	<select id="rangePrice" parameterType="com.anotherclass.bitcamp.vo.user.ClassListVO"  resultType="com.anotherclass.bitcamp.vo.user.ClassListVO">
+		<![CDATA[
+		   select a.class_no, a.class_name, a.class_price, a.class_thumb, a.class_addr1,a.class_tag, a.class_content,c.category_name, b.nick
+          from classtbl a, category c, membertbl b
+          where a.category_no = c.category_no
+          and a.member_id = b.member_id
+          and a.class_price >= #{param1}
+          and a.class_price <= #{param2}
+          and (class_tag || category_name || class_addr1 || class_name || nick) like '%${param3}%'
+          order by class_price asc
+		]]>
+	</select>
+	<select id="findCreatorClass"  parameterType="com.anotherclass.bitcamp.vo.user.ClassListVO" resultType="com.anotherclass.bitcamp.vo.user.ClassListVO">
+		<![CDATA[
+		 select a.class_no, a.class_name, a.class_price, a.class_thumb, a.class_tag, c.nick,c.member_name
+		 from classTbl a, membertbl c 
+         where c.member_id = a.member_id
+         and c.member_id = #{param1}
+         order by class_writedate desc
+		]]>
+	</select>
+</mapper>

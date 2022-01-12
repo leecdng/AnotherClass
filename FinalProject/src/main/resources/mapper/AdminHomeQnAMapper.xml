@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.anotherclass.bitcamp.dao.admin.AdminHomeQnADAO">
+  	<select id="totalRecordCount" resultType="int" >
+		select count(user_qna_no)
+		from homeQnaUser 
+		where delete_sort <![CDATA[=]]> 0       
+		and  view_grade   <![CDATA[=]]> 1 
+		
+		<if test="searchWord !=null">
+           and ${searchKey} LIKE '%${searchWord}%'  
+        </if>
+		
+	</select>
+	
+	<select id="boardPageSelect" resultType="com.anotherclass.bitcamp.service.vo.admin.AdminHomeQnAVO" >
+		select * from  
+			(select * from  
+				(select user_qna_no, content,member_id, title, writedate, board_no1, board_no2 , replycount, view_grade from
+					(select user_qna_no, content,member_id, title, to_char(writedate, 'yyyy-MM-DD') writedate, board_no1 ,board_no2,view_grade, count(board_no1)over(partition by board_no1) as replycount	from homeQnaUser where delete_sort =  0 order by  user_qna_no)
+					
+				where view_grade   <![CDATA[=]]> 1 
+				
+				<if test="searchWord !=null">
+				and ${searchKey} LIKE '%${searchWord}%'
+				</if>               
+				order by board_no1 desc, user_qna_no)		
+				
+				
+			where rownum<![CDATA[<=]]>#{nowPage}*#{pageRecord} order by board_no1 ,user_qna_no asc)
+		where rownum<![CDATA[<=]]>#{pageRecord} order by board_no1 desc, user_qna_no  	
+	</select>
+  <select id="adminHomeQnAView" resultType="com.anotherclass.bitcamp.service.vo.admin.AdminHomeQnAVO">
+	 	select user_qna_no, member_id, title, content,writedate, board_no1, board_no2 , replycount from
+		(select user_qna_no, member_id, title, content , file1, file2, file3, to_char(writedate, 'yyyy-MM-DD') writedate, board_no1 ,board_no2, 
+		count(board_no1)over(partition by board_no1) as replycount, com_sec, delete_sort	from homeQnaUser where delete_sort =  0 )
+		where user_qna_no =#{param1}	
+  </select>
+  <select id="adminHomeQnAView2" resultType="String">
+	  	select content 
+		from homeqnauser
+		where board_no2 = 1
+		and board_no1 =#{param1}	
+  </select>
+   <select id="adminHomeQnWrite" resultType="com.anotherclass.bitcamp.service.vo.admin.AdminHomeQnAVO">
+	 	select user_qna_no, member_id	
+	 	from homeqnauser
+		where user_qna_no <![CDATA[= ]]>#{param1}	
+  </select>
+  <insert id="adminHomeQnWrite2" parameterType="com.anotherclass.bitcamp.service.vo.admin.AdminHomeQnAVO">
+			<![CDATA[
+			insert into homeQnaUser ( user_qna_no, title, content, member_id , board_no1, board_no2, com_sec, delete_sort,  view_grade)
+			values (home_qna_sq.nextval, #{title}, #{content}, #{member_id} ,#{user_qna_no} , 1, 0, 0, 1)
+  ]]>
+  </insert>
+  </mapper>

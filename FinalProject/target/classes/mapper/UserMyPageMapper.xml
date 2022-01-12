@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.anotherclass.bitcamp.dao.user.UserMyPageDAO">
+  	<select id="myPageHomePageAsk" resultType="com.anotherclass.bitcamp.vo.user.UserHomeQnAVO" >
+		<![CDATA[
+			select user_qna_no, member_id, title, content, file1, file2, file3, writedate, board_no1, board_no2 , replycount, view_grade from
+			(select user_qna_no, member_id, title, content, file1, file2, file3, to_char(writedate, 'yyyy-MM-DD') writedate, board_no1 ,board_no2,view_grade, count(board_no1)over(partition by board_no1) as replycount	from homeQnaUser where delete_sort =  0 order by  user_qna_no)
+			where view_grade = 1 
+			and member_id = #{param1}
+			and board_no2 = 0
+			order by board_no1 desc, user_qna_no
+  		]]>
+  	</select>
+  	<select id="myPageHpmePageAskReply" resultType="String">
+  		<![CDATA[
+  			select  content
+  			from homeQnaUser 
+			where view_grade =1
+			and board_no1 = #{param1}
+			and  board_no2=1
+			and delete_sort=0			
+  		]]>
+  	</select>
+  	<select id="myPageClassAskAll" resultType="com.anotherclass.bitcamp.vo.user.UserClassDetailVO2">  
+	  	<![CDATA[
+	  		select  a.class_qna_no, a.class_no,a.classqna_member_id, a.classqna_content, to_char(a.classqna_writedate, 'yyyy-MM-DD') classqna_writedate, b.class_name, c.category_name
+			from classQna a, classtbl b, category c
+			where a.class_no = b.class_no
+			and b.category_no = c.category_no
+			and a.classqna_member_id =#{param1}
+	  	]]>
+  	</select>
+  	<select id="classAskRepltCheck" resultType="int">
+  		<![CDATA[
+  			select count(*)
+			from classQnaCom
+			where class_qna_no = #{param1}
+  		]]>   		
+  	</select>
+  	<select id="Replycreatorinfo" resultType="com.anotherclass.bitcamp.vo.user.UserClassDetailVO2">
+  		<![CDATA[
+  			select a.class_qna_com_no, a.classqnacom_member_id, a.classqnacom_reply, to_char(a.classqnacom_writedate, 'yyyy-MM-DD') classqnacom_writedate, b.nick, b.member_img
+			from classqnacom a , membertbl b
+			where a.classqnacom_member_id = b.member_id
+			and a.classqnacom_com_sec =0
+			and a.class_qna_no = #{param1}
+  		]]>   
+  	</select>
+  	<select id="Likedcreator" resultType="com.anotherclass.bitcamp.vo.user.UserClassDetailVO">
+  		<![CDATA[
+  			select a.creator_like_no, a.creator_id, b.nick, b.member_img
+			from creatorlike a, membertbl b 
+			where a.creator_id = b.member_id
+			and a.user_id = #{param1}
+  		]]>  
+  	</select>
+  	<select id="LikedcreatorCount" resultType="int">
+  		<![CDATA[
+	  		SELECT COUNT(*) AS creatorlikecount
+			FROM creatorlike 
+			where creator_id = #{param1}
+  		]]> 
+  	</select>
+  	<select id="OpenClassCount" resultType="int">
+	  	<![CDATA[
+		  	SELECT  COUNT(*) AS creatorclasscount
+			FROM classtbl
+			where member_id  = #{param1}
+	  		]]> 
+  	</select>
+  	<delete id="CancelLikeCreator">
+	  	<![CDATA[	  	
+			delete creatorlike where creator_like_no = #{param1}
+	  	]]> 
+  	</delete>
+  	<select id="BaskList" resultType="com.anotherclass.bitcamp.vo.user.UserClassDetailVO">
+  		<![CDATA[	 
+  			select a.basket_no ,a.headcount , a.class_option_no, b.class_no, to_char( b.start_date,'yyyy-MM-DD HH:MM') start_date, to_char( b.end_date,'yyyy-MM-DD HH:MM') end_date , c.class_name, c.class_price, c.category_no, c.class_thumb
+			from basket a, classoption b, classtbl c
+			where a.class_option_no = b.class_option_no
+			and b.class_no = c.class_no
+			and a.member_id = #{param1}
+  			]]> 
+  	</select>
+  	<select id="getBasketNum" resultType="int">  	
+	  	<![CDATA[	
+	  		select count(*)from basket
+			where member_id = #{param1}
+	  	]]>
+  	</select>
+  	<select id="getCreatorNick" resultType="String">
+  		<![CDATA[	
+		  	select b.nick
+			from classtbl a, membertbl b
+			where a.member_id = b.member_id
+			and a.class_no= #{param1}
+		]]>
+  	</select>
+  	<select id="MemberInfo" resultType="com.anotherclass.bitcamp.register.RegisterVO" parameterType="String">
+  		<![CDATA[	
+		  	select member_id, member_name, member_tel, member_email, post_no, addr1, addr2, nick, member_img, sns_type from memberTbl where member_id = #{param1}
+		]]>
+  	</select>
+  	<update id="MemberInfoEdit" parameterType="com.anotherclass.bitcamp.register.RegisterVO" >
+  		<![CDATA[
+  			update memberTbl set member_tel = #{member_tel}, member_email = #{member_email}, post_no = trim(#{post_no}), addr1 = #{addr1} , addr2 = #{addr2}, member_img = #{member_img}
+  			where member_id = #{member_id}
+  		]]>
+  	</update>
+  	<select id="orderFinList" resultType="com.anotherclass.bitcamp.vo.user.UserMyPageOrderVO">
+  		<![CDATA[
+	  		select a.order_no, a.order_date,to_char(a.order_date, 'YYYY.MM.DD') order_date2, a.merchant,b.class_option_no ,to_char(b.start_date, 'YYYY.MM.DD HH:MI') start_date,  to_char(b.end_date, 'YYYY.MM.DD HH:MI') end_date ,c.class_no, c.class_name,c.class_thumb ,c.class_price
+			from ordertbl a, classoption b, classtbl c
+			where a.class_option_no = b.class_option_no
+			and b.class_no = c.class_no
+			and a.order_date IS NOT NULL
+			and a.cancel_date  IS NULL
+			and a.refund_date IS NULL
+			and to_char(sysdate, 'YYYYMMDD') < to_char(b.end_date, 'YYYYMMDD')
+			and a.member_id = #{param1}  
+			order by a.order_date	
+  		]]>
+  	</select>
+  	<select id="orderFinList2" resultType="com.anotherclass.bitcamp.vo.user.UserMyPageOrderVO">
+		 <![CDATA[
+		 	select a.order_no, a.order_date, to_char(a.order_date, 'YYYY.MM.DD') order_date2, a.merchant,b.class_option_no ,to_char(b.start_date, 'YYYY.MM.DD HH:MI') start_date,  to_char(b.end_date, 'YYYY.MM.DD HH:MI') end_date ,c.class_no, c.class_name,c.class_thumb ,c.class_price
+			from ordertbl a, classoption b, classtbl c
+			where a.class_option_no = b.class_option_no
+			and b.class_no = c.class_no
+			and a.order_date IS NOT NULL
+			and a.cancel_date  IS NULL
+			and a.refund_date IS NULL
+			and to_char(sysdate, 'YYYYMMDD') > to_char(b.end_date, 'YYYYMMDD')
+			and a.member_id = #{param1}  
+			order by b.start_date
+		]]>
+  	</select>
+  	<select id="orderFinList3" resultType="com.anotherclass.bitcamp.vo.user.UserMyPageOrderVO">
+		  <![CDATA[
+		  	select a.order_no, a.order_date, to_char(a.order_date, 'YYYY.MM.DD') order_date2, a.cancel_date, to_char(a.cancel_date, 'YYYY.MM.DD') cancel_date2 ,to_char(a.refund_date, 'YYYY.MM.DD') refund_date ,a.merchant,b.class_option_no ,to_char(b.start_date, 'YYYY.MM.DD HH:MI') start_date,  to_char(b.end_date, 'YYYY.MM.DD HH:MI') end_date ,c.class_no, c.class_name,c.class_thumb ,c.class_price
+			from ordertbl a, classoption b, classtbl c
+			where a.class_option_no = b.class_option_no
+			and b.class_no = c.class_no
+			and a.order_date IS NOT NULL
+			and a.cancel_date  IS NOT NULL		
+			and a.member_id = #{param1}
+			order by a.cancel_date
+		  ]]>
+  	</select>
+  	<update id="userOrderCancleSub">
+	  	 <![CDATA[
+	  	 	update ordertbl  set cancel_date = sysdate 
+			where order_no=#{param1}  
+	  	 ]]>
+  	</update>
+  	<select id="UserMypageCheckFrep" resultType="int">
+	  	 <![CDATA[
+	  	 	select count(board_no1)over(partition by board_no1) as replycount 
+			from homeQnaUser 
+			where board_no2 = 0 
+			and user_qna_no = #{param1} 
+	  	 ]]>
+  	</select>
+  	<delete id="UserMyPageHQnADel" >
+	  	 <![CDATA[
+	  	 	delete homeqnauser where user_qna_no=#{param1} 
+	  	  ]]>
+  	</delete>
+  	<update id="UserMyPageHQnADel2" >
+	  	 <![CDATA[
+		  	 update homeQnaUser set delete_sort  =   1 
+	 		 where board_no1=#{param1}
+	  	 ]]>
+  	</update>
+  	
+  	<update id="UserMyPageHQnAEdi" parameterType="com.anotherclass.bitcamp.vo.user.UserHomeQnAVO">
+	  	<![CDATA[
+	  		update homeQnaUser set  content=#{content} 
+			where user_qna_no=#{user_qna_no}
+	  	 ]]>
+  	</update>
+  	<select id="userMyPageReviewCheck" resultType="int">  		
+		select count(order_no) cnt from reviewtbl where order_no = #{param1}
+	</select>
+	<select id="pwdCheck" parameterType="com.anotherclass.bitcamp.register.RegisterVO" resultType="com.anotherclass.bitcamp.register.RegisterVO" statementType="CALLABLE">
+		call pw_check_in(
+			#{member_pw, mode=IN, jdbcType=VARCHAR, javaType=String},
+			#{member_id, mode=IN, jdbcType=VARCHAR, javaType=String},
+			#{additional_information_one, mode=OUT, jdbcType=VARCHAR, javaType=String} 
+		)
+	</select>
+
+	<select id="Likedclass"  resultType="com.anotherclass.bitcamp.vo.user.UserClassDetailVO">
+		select a.class_like_no ,b.class_no, b.class_name, b.class_thumb, c.category_name
+		from classlike a,classtbl  b,category  c
+		where a.class_no = b.class_no
+		and b.category_no = c.category_no
+		and a.member_id =#{param1}	
+	</select>
+	<delete id="CancelLikeClass">
+	  	<![CDATA[	  	
+			delete classlike where class_like_no = #{param1}
+	  	]]> 
+  	</delete>
+
+	<update id="passwordChange" parameterType="com.anotherclass.bitcamp.register.RegisterVO" >
+		<![CDATA[
+			update membertbl set member_pw = #{member_pw} where member_id = #{member_id}
+		]]>
+	</update>
+
+  </mapper>
