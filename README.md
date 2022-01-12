@@ -56,4 +56,5 @@
 
 ---
 ## 발표 영상
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/GTm1BnCkjxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<a href="https://youtu.be/GTm1BnCkjxo">발표 영상 바로 가기
+![youtube](https://user-images.githubusercontent.com/85078379/149211423-53537bc9-f785-48b9-ba33-b8bc8108ab2d.png)</a>
