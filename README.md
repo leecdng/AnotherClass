@@ -1,7 +1,7 @@
 # AnotherClass
 파이널 웹 프로젝트 - 취미 클래스 예약 웹사이트
 
-<img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=Oracle&logoColor=white"/>
+![user_main](https://user-images.githubusercontent.com/85078379/149211943-a057ec8f-1925-4cb8-844d-0db49015be29.png)
 
 ## 프로젝트 소개
 + 매일 반복되는 똑같은 일상에 다양한 취미 클래스를 통해 새로운 경험을 제공합니다.
@@ -40,21 +40,31 @@
 ---
 
 ## 맡은 기능
-+ 로그인 - RSA 암호화 / 카카오, 네이버 로그인 API
-+ 사용자 메인 - Swiper.js
-+ 내 주변 클래스 찾기 - 카카오 지도 API
-+ 후기 게시판 - 별점 등록, 댓글-답댓글 기능
-+ 크리에이터/관리자 메인 화면
-+ 크리에이터/관리자 수익 정산 관리
+1. 로그인 - RSA 암호화 / 카카오, 네이버 로그인 API
+2. 사용자 메인 - Swiper.js
+3. 내 주변 클래스 찾기 - 카카오 지도 API
+4. 후기 게시판 - 별점 등록, 댓글-답댓글 기능
+5. 크리에이터/관리자 메인 화면
+6. 크리에이터/관리자 수익 정산 관리
 
 
-### 로그인 - RSA 암호화 / 카카오, 네이버 로그인 API
+### 1. 로그인 - RSA 암호화 / 카카오, 네이버 로그인 API
+### 2. 사용자 메인 - Swiper.js
+### 3. 내 주변 클래스 찾기 - 카카오 지도 API
+### 4. 후기 게시판 - 별점 등록, 댓글-답댓글 기능
+### 5. 크리에이터/관리자 메인 화면
+### 6. 크리에이터/관리자 수익 정산 관리
 
+
+---
+## 기술 스택
+<img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=Oracle&logoColor=white"/>
 ---
 ## 기타 사항
 + 
 
 ---
 ## 발표 영상
-<a href="https://youtu.be/GTm1BnCkjxo">발표 영상 바로 가기</a><br/>
++ <a href="https://youtu.be/GTm1BnCkjxo">발표 영상 바로 가기</a><br/>
+
 <a href="https://youtu.be/GTm1BnCkjxo"><img src="https://user-images.githubusercontent.com/85078379/149211423-53537bc9-f785-48b9-ba33-b8bc8108ab2d.png" style="maxwidth:100%; width: 720px; align:left;" /></a>
