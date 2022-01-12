@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.anotherclass.bitcamp.dao.creator.CreatorHelperDAO">
+  	<select id="creatorNoticeAllRecord" resultType="com.anotherclass.bitcamp.vo.creator.CreatorNoticeVO">  
+  		select notice_no, title, content, member_id, writedate, view_grade
+		from noticeTbl	
+		where view_grade=2
+  	</select>
+  	
+  	<select id="creatorFaqAllRecord" resultType="com.anotherclass.bitcamp.vo.creator.CreatorFaqVO">
+  		select faq_no, title, content, member_id, writedate, view_grade
+		from faq
+		where view_grade=2
+  	</select>
+  </mapper>
+  
