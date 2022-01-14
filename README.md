@@ -48,19 +48,33 @@
 
 ### 로그인
 + 보안을 위해 양방향 비대칭키 방식인 RSA 암호화를 사용했습니다.
+  
+  ![login_04](https://user-images.githubusercontent.com/85078379/149461002-17bffd17-c20d-4e18-a8e9-fb7ddd5b8342.gif)
+
 + 카카오 로그인 API, 네이버 로그인 API를 사용하여 SNS 계정을 통한 간편 가입과 로그인이 가능합니다.
+  
 ### 사용자 메인
 + Swiper.js를 사용하여 터치나 스와이프 방식으로 슬라이드를 넘길 수 있게 구현했습니다.
+  
+  ![main1](https://user-images.githubusercontent.com/85078379/149463783-956efd0b-d03d-4283-b440-f94af6610108.gif)
+
 + SQL을 사용하여 좋아요 수, 후기 별점 평균, 날짜 순 등으로 정렬한 데이터 추출했습니다.
 + 카테고리와 서브카테고리 또한 SQL을 이용하여 불러왔습니다.
+  
+  ![main_cate2](https://user-images.githubusercontent.com/85078379/149464116-d34405a2-41dc-4f89-b541-fa8607477358.gif)
+
+  
+
 ### 내 주변 클래스 찾기
 + 카카오 지도 API를 사용하여 marker와 infowindow를 통해 클래스의 위치와 정보를 함께 확인할 수 있습니다.
 + 지역 선택과 키워드 검색을 통해 원하는 클래스를 찾을 수 있으며, 검색을 할 때마다 목록과 지도에 해당하는 클래스들만 새롭게 표시됩니다.
 + pagination은 more 버튼을 통해 한 번에 10건씩 더 보여지며, 더이상 조회될 클래스가 없으면 more버튼은 사라집니다.
+  
 ### 후기 게시판
 + 별점 등록은 간단하게 클릭으로 선택이 가능합니다.
 + 사진 파일 첨부
 + 댓글과 답댓글 기능
+  
 ### 크리에이터/관리자 메인
 + chart.js
 ### 크리에이터/관리자 수익 정산 관리
@@ -75,4 +89,4 @@
 ## 발표 영상
 + <a href="https://youtu.be/GTm1BnCkjxo">발표 영상 바로 가기</a><br/>
 
-<a href="https://youtu.be/GTm1BnCkjxo"><img src="https://user-images.githubusercontent.com/85078379/149211423-53537bc9-f785-48b9-ba33-b8bc8108ab2d.png" style="max-width:100%; width: 600px; align:left;" /></a>
+  <a href="https://youtu.be/GTm1BnCkjxo"><img src="https://user-images.githubusercontent.com/85078379/149211423-53537bc9-f785-48b9-ba33-b8bc8108ab2d.png" style="max-width:100%; width: 600px; align:left;" /></a>
