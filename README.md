@@ -67,6 +67,10 @@
 
 ### 내 주변 클래스 찾기
 + 카카오 지도 API를 사용하여 marker와 infowindow를 통해 클래스의 위치와 정보를 함께 확인할 수 있습니다.
+  
+  ![classmap_01](https://user-images.githubusercontent.com/85078379/149467085-640079de-40a8-4ecb-9d2d-8ace91ef59d1.gif)
+
+  
 + 지역 선택과 키워드 검색을 통해 원하는 클래스를 찾을 수 있으며, 검색을 할 때마다 목록과 지도에 해당하는 클래스들만 새롭게 표시됩니다.
 + pagination은 more 버튼을 통해 한 번에 10건씩 더 보여지며, 더이상 조회될 클래스가 없으면 more버튼은 사라집니다.
   
