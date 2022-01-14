@@ -72,7 +72,12 @@
 
   
 + 지역 선택과 키워드 검색을 통해 원하는 클래스를 찾을 수 있으며, 검색을 할 때마다 목록과 지도에 해당하는 클래스들만 새롭게 표시됩니다.
+  
+  ![classmap_02](https://user-images.githubusercontent.com/85078379/149468165-26ba507e-f7ad-45d1-92aa-73d9c64247ac.gif)
+
 + pagination은 more 버튼을 통해 한 번에 10건씩 더 보여지며, 더이상 조회될 클래스가 없으면 more버튼은 사라집니다.
+  
+  ![classmap_03](https://user-images.githubusercontent.com/85078379/149469120-b2f48d41-b250-4c1d-8d76-b5388635a377.gif)
   
 ### 후기 게시판
 + 별점 등록은 간단하게 클릭으로 선택이 가능합니다.
@@ -86,7 +91,7 @@
 ---
 
 ## 기술 스택
-<img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/Oracle-F80000?style=flat-square&logo=Oracle&logoColor=white"/>
++ 
 
 ---
 
