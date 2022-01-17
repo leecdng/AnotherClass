@@ -227,13 +227,25 @@ public class RegisterController {
 	}
 
 	
-	//// 콜백 ------- 수정할 것
-	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
-	public String callback(HttpServletRequest request) {
-		request.getAttribute("logType");
-		return "register/callback";
+	// 네이버 로그인 콜백 - 회원 로그인
+	@RequestMapping(value = "/callback_user", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView callback_user() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("logType", "1");
+		mav.setViewName("/register/callback");
+		System.out.println("실행1");
+		return mav;
 	}
 	
+	// 네이버 로그인 콜백 - 크리에이터 로그인
+	@RequestMapping(value = "/callback_creator", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView callback_creator(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("logType", "2");
+		mav.setViewName("/register/callback");
+		System.out.println("실행2");
+		return mav;
+	}
 	
 	// 로그아웃
 	@RequestMapping(value = "/logout")

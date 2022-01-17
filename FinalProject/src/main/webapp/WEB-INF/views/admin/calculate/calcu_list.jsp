@@ -193,11 +193,21 @@ $(document).ready(function(){
 		console.log('실행1');
 		$('.select-calcu').each(function(){
 			if($(this).prop('checked')==true){
-				var tmp = $(this);
-				setTimeout(function() {
-					tmp.parent().next().next().next().next().text('2021/10/29');
-				}, 1800);
+				var creator_id = $(this).parent().next().text(); // 크리에이터 ID
+				var end_date = $(this).parent().next().next().text(); // 결제 확정일 - 해당 강의 종료일
 				
+				$.ajax({
+					url: '<%=request.getContextPath()%>/updateCalcuList',
+					data: { 'member_id':creator_id, 'end_date':end_date },
+					success: function(result){
+						
+						setPage(); // 페이지 세팅 + 정산 목록 불러오기
+						
+					}, error: function(e){
+						console.log('정산하기 에러');
+					}
+				}); // ajax 정산하기
+
 			}
 		});
 		

@@ -8,12 +8,19 @@
 </head>
 <body>
 <script>
-	var naver_id_login = new naver_id_login("Rq5oeE9hVx0Z1la5Zwrc", "http://localhost:9090/another/callback");
+	var log_type = "${logType}";
+	var naver_id_login;
+	if(log_type == 1){ // 회원 로그인
+		naver_id_login = new naver_id_login("Rq5oeE9hVx0Z1la5Zwrc", "http://localhost:9090/another/callback_user");
+	} else{ // 크리에이터 로그인
+		naver_id_login = new naver_id_login("Rq5oeE9hVx0Z1la5Zwrc", "http://localhost:9090/another/callback_creator");
+	}
 	// 접근 토큰 값 출력
 	console.log(naver_id_login.oauthParams.access_token);
 	// 네이버 사용자 프로필 조회
 	naver_id_login.get_naver_userprofile("naverSignInCallback()");
 
+	// 유효성 검사
 	function naverValidation(){
 		member_nick = naver_id_login.getProfileData('name');
 		member_email = naver_id_login.getProfileData('email');
@@ -23,13 +30,13 @@
 		if(member_nick == undefined || member_nick == null){
 			alert("이름은 필수 정보입니다. 정보 제공을 동의해주세요.");
 			naver_id_login.reprompt();
-			return false;
+			return;
 		}
 		
         if( member_email == undefined || member_email == null) {
 			alert("이메일은 필수 정보입니다. 정보 제공을 동의해주세요.");
 			naver_id_login.reprompt();
-			return false;
+			return;
 		}
         
         naverSignInCallback();
@@ -38,6 +45,7 @@
 	// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
 	var url = '<%=request.getContextPath()%>/loginOk'; // 정보 가지고 가서 저장할 url
 	var member_id, member_name, member_email, sns_type;
+	
 	function naverSignInCallback() {
 		member_id = naver_id_login.getProfileData('email');
 		member_name = naver_id_login.getProfileData('name');
@@ -45,7 +53,7 @@
 		sns_type = 'naver';
 
 		// 함수 호출
-		post_to_url(url, {'member_id': member_id, 'member_name': member_name, 'member_email' : member_email, 'sns_type': sns_type, 'logType':1 } );
+		post_to_url(url, {'member_id': member_id, 'member_name': member_name, 'member_email' : member_email, 'nick' : member_name, 'sns_type': sns_type, 'logType':log_type } );
 	}
 
 	function post_to_url(path, params, method='post'){

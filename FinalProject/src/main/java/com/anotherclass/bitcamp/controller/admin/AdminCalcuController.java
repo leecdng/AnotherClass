@@ -41,6 +41,13 @@ public class AdminCalcuController {
 		return calcuList;
 	}
 	
+	@RequestMapping("/updateCalcuList")
+	@ResponseBody
+	public void updateCalcuList(AdminCalcuVO vo) {
+		int cnt = adminCalcuService.updateCalcuList(vo);
+		System.out.println(cnt);
+	}
+	
 	
 	@RequestMapping("/creatorCalcuPage")
 	@ResponseBody
