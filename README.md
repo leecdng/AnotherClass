@@ -7,7 +7,7 @@
 + 매일 반복되는 똑같은 일상에 다양한 취미 클래스를 통해 새로운 경험을 제공합니다.
 + 내 주변에 있는 클래스의 위치 확인과 다양한 취미 클래스를 한눈에 볼 수 있고, 원하는 날짜에 취미 클래스 예약 결제가 가능한 서비스를 제공합니다.
 + 커뮤니티 공간을 통해 회원 간 소통하여 수강 후기와 취미 활동의 즐거움에 대한 가치를 공유하여 서로에게 도움이 되는 목적을 두었습니다.
-+ <a href="https://github.com/leecdng/Covid-19_Project/blob/master/3%EC%A1%B0%20UI%EA%B5%AC%ED%98%84.pdf">프로젝트 PPT 파일</a>을 참고해 주세요.
++ <a href="https://github.com/leecdng/AnotherClass/blob/main/AnotherClass_%EB%B0%9C%ED%91%9CPPT.pdf">프로젝트 PPT 파일</a>을 참고해 주세요.
 
 ## 개발 기간 및 인원
 + 개발 기간 : 2021/10/01 ~ 2021/10/29
@@ -111,7 +111,6 @@
   
   <img src="https://user-images.githubusercontent.com/85078379/149715900-a7697df5-c209-4799-a8df-7514db81f9dc.png" width="750"/>
 
-  
 
 ---
 
