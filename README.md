@@ -18,8 +18,9 @@
 회원
 + 회원가입 - SHA-256 암호화
 + 로그인 - RSA 암호화 / 카카오, 네이버 로그인 API
++ 예약 결제 - 아임포트 API
++ 좋아요 기능 / 장바구니 기능
 + 내 주변 클래스 찾기 - 카카오 지도 API
-+ 장바구니 / 예약 결제 - 아임포트 API
 + 후기게시판 - 별점 등록, 댓글-답댓글 기능
 + 커뮤니티 게시판
 
@@ -32,7 +33,7 @@
 + 전체 클래스 관리
 + 회원 및 크리에이터 관리
 + 결제 관리
-+ 정산 관리
++ 정산하기
 + 고객 문의 관리
 
 ---
@@ -52,6 +53,9 @@
   ![login_04](https://user-images.githubusercontent.com/85078379/149461002-17bffd17-c20d-4e18-a8e9-fb7ddd5b8342.gif)
 
 + 카카오 로그인 API, 네이버 로그인 API를 사용하여 SNS 계정을 통한 간편 가입과 로그인이 가능합니다.
+
+  ![login_07_sns](https://user-images.githubusercontent.com/85078379/149711773-69bceeb4-0612-4b1e-a76e-f4f89ef0ad54.png)
+
   
 ### 사용자 메인
 + Swiper.js를 사용하여 터치나 스와이프 방식으로 슬라이드를 넘길 수 있게 구현했습니다.
@@ -59,7 +63,7 @@
   ![main1](https://user-images.githubusercontent.com/85078379/149463783-956efd0b-d03d-4283-b440-f94af6610108.gif)
 
 + SQL을 사용하여 좋아요 수, 후기 별점 평균, 날짜 순 등으로 정렬한 데이터 추출했습니다.
-+ 카테고리와 서브카테고리 또한 Ajax을 이용하여 카테고리 DB를 불러왔습니다.
++ 카테고리와 서브카테고리 또한 Ajax을 이용하여 DB를 불러왔습니다.
   
   ![main_cate2](https://user-images.githubusercontent.com/85078379/149464116-d34405a2-41dc-4f89-b541-fa8607477358.gif)
 
@@ -92,10 +96,22 @@
 
   ![review_03](https://user-images.githubusercontent.com/85078379/149710792-7d56361a-b72a-4ee9-8335-cb5d3bb079a7.gif)
 
-  
 ### 크리에이터/관리자 메인
-+ chart.js
++ Chart.js를 사용하여 클래스 관련 정보를 한눈에 볼 수 있게 구현했습니다.
+
+  <img src="https://user-images.githubusercontent.com/85078379/149715931-5ca7d121-43bb-4ec1-a7ae-2f96dab26fc3.png" width="750"/>
+
+
 ### 크리에이터/관리자 수익 정산 관리
++ 체크된 정산리스트의 크리에이터ID와 결제 확정 날짜를 조회하여 해당하는 주문 건을 모두 정산완료 처리하고, 비동기 처리 방식을 사용하여 해당 정산 날짜가 바로 목록에 조회됩니다.
+
+  ![calcu_02](https://user-images.githubusercontent.com/85078379/149715026-7bb28123-d8c5-4310-8991-eaa66c1643e2.gif)
+
++ JOIN, GROUP BY, Sub Query 등을 사용하여 클래스 관련 통계 데이터를 조회했습니다.
+  
+  <img src="https://user-images.githubusercontent.com/85078379/149715900-a7697df5-c209-4799-a8df-7514db81f9dc.png" width="750"/>
+
+  
 
 ---
 
