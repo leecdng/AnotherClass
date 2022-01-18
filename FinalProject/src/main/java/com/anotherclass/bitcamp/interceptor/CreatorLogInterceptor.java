@@ -1,4 +1,4 @@
-package com.anotherclass.bitcamp.intercepter;
+package com.anotherclass.bitcamp.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,18 +8,18 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class LoginCheckIntercepter extends HandlerInterceptorAdapter {
+public class CreatorLogInterceptor extends HandlerInterceptorAdapter {
 	
 	// 컨트롤러가 호출되기전에 호출되는 메소드
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
 		
 		//로그인된 아이디구하기
 		HttpSession session = request.getSession();
-		String userLog= (String)session.getAttribute("userLog");
+		String creatorLog= (String)session.getAttribute("creatorLog");
 		
 		//로그인이 안된경우
-		if(userLog==null || !userLog.equals("Y")) {
-			response.sendRedirect(request.getContextPath()+"/login");
+		if(creatorLog==null || !creatorLog.equals("Y")) {
+			response.sendRedirect(request.getContextPath()+"/creatorLogin");
 			return false;
 		}
 		//로그인이 된 경우

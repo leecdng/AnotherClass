@@ -33,6 +33,7 @@ public class AdminCalcuController {
 		return vo;
 	}
 	
+	// 정산 목록 조회
 	@RequestMapping("/selectAdminCalcuList")
 	@ResponseBody
 	public List<AdminCalcuVO> selectAdminCalcuList(AdminCalcuVO vo) {
@@ -41,6 +42,7 @@ public class AdminCalcuController {
 		return calcuList;
 	}
 	
+	// 정산하기
 	@RequestMapping("/updateCalcuList")
 	@ResponseBody
 	public void updateCalcuList(AdminCalcuVO vo) {

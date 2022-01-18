@@ -188,7 +188,7 @@ $(document).ready(function(){
 	
 	
 	
-	// 정산 완료일 바꾸기
+	// 정산하기
 	$(document).on('click','.calcu-btn', function(){
 		console.log('실행1');
 		$('.select-calcu').each(function(){

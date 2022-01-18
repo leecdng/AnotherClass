@@ -24,19 +24,34 @@
 		 	<mvc:mapping path="/mypage/mypage6"/>
 		 	<mvc:mapping path="/mypage/review"/>
 		 	<mvc:mapping path="/mypage/Myinformation"/>
-		 	<bean class="com.anotherclass.bitcamp.intercepter.LoginCheckIntercepter"/>
+		 	<bean class="com.anotherclass.bitcamp.interceptor.LoginCheckInterceptor"/>
 	 	</mvc:interceptor>
 	 	
 	 	<mvc:interceptor>
 		 	<mvc:mapping path="/creator/"/>
+		 	<mvc:mapping path="/creator/mypage/Myinformation"/>
 		 	<mvc:mapping path="/creator/creatorChannel"/>
 		 	<mvc:mapping path="/creator/makeClass"/>
-		 	<bean class="com.anotherclass.bitcamp.intercepter.CreatorLogIntercepter"/>
+		 	<mvc:mapping path="/creator/classList"/>
+		 	<mvc:mapping path="/creator/classAskManage"/>
+		 	<mvc:mapping path="/creator/review"/>
+		 	<mvc:mapping path="/creator/incomeChart"/>
+		 	<mvc:mapping path="/creator/calcuList"/>
+		 	<mvc:mapping path="/creator/CreatorNotice"/>
+		 	<mvc:mapping path="/creator/CreatorFaq"/>
+		 	<bean class="com.anotherclass.bitcamp.interceptor.CreatorLogInterceptor"/>
 	 	</mvc:interceptor>
 	 	
 	 	<mvc:interceptor>
 		 	<mvc:mapping path="/admin/"/>
-		 	<bean class="com.anotherclass.bitcamp.intercepter.AdminLogIntercepter"/>
+		 	<mvc:mapping path="/admin/basicClassManagement"/>
+		 	<mvc:mapping path="/admin/optionClassManagement"/>
+		 	<mvc:mapping path="/admin/userManagement"/>
+		 	<mvc:mapping path="/admin/creatorManagement"/>
+		 	<mvc:mapping path="/admin/RefundMangement"/>
+		 	<mvc:mapping path="/admin/calcuList"/>
+		 	<mvc:mapping path="/admin/HomeQnA"/>
+		 	<bean class="com.anotherclass.bitcamp.interceptor.AdminLogInterceptor"/>
 	 	</mvc:interceptor>
 	 	
 	 </mvc:interceptors>

@@ -1,4 +1,4 @@
-package com.anotherclass.bitcamp.intercepter;
+package com.anotherclass.bitcamp.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class AdminLogIntercepter extends HandlerInterceptorAdapter {
+public class AdminLogInterceptor extends HandlerInterceptorAdapter {
 	
 	// 컨트롤러가 호출되기전에 호출되는 메소드
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
