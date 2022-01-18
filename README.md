@@ -48,6 +48,8 @@
 
 
 ### 로그인
++ 회원, 크리에이터, 관리자로 구분하여 로그인 기능을 구현했습니다.
++ Interceptor를 구현하여, 로그인이 필요한 페이지에 로그아웃 상태로 접근하면 로그인 화면으로 이동하도록 하였습니다.
 + 보안을 위해 양방향 비대칭키 방식인 RSA 암호화를 사용했습니다. (암호문을 확인하기 위해 임의로 alert을 띄웠습니다.)
   
   ![login_04](https://user-images.githubusercontent.com/85078379/149461002-17bffd17-c20d-4e18-a8e9-fb7ddd5b8342.gif)
@@ -74,17 +76,16 @@
   
   ![classmap_01](https://user-images.githubusercontent.com/85078379/149467085-640079de-40a8-4ecb-9d2d-8ace91ef59d1.gif)
 
-  
-+ 지역 선택과 키워드 검색을 통해 원하는 클래스를 찾을 수 있으며, 검색을 할 때마다 목록과 지도에 해당하는 클래스들만 새롭게 표시됩니다.
++ 지역 선택과 키워드 검색을 통해 원하는 클래스를 찾을 수 있으며, 검색을 할 때마다 목록과 지도에 해당하는 클래스들만 새롭게 표시되도록 구현하였습니다.
   
   ![classmap_02](https://user-images.githubusercontent.com/85078379/149468165-26ba507e-f7ad-45d1-92aa-73d9c64247ac.gif)
 
-+ pagination은 more 버튼을 통해 한 번에 10건씩 더 보여지며, 더이상 조회될 클래스가 없으면 more버튼은 사라집니다.
++ Pagination은 more 버튼을 통해 한 번에 10건씩 더 보여지도록 구현했으며, 더이상 조회될 클래스가 없으면 more버튼은 사라집니다.
   
   ![classmap_03](https://user-images.githubusercontent.com/85078379/149469120-b2f48d41-b250-4c1d-8d76-b5388635a377.gif)
   
 ### 후기 게시판
-+ 별점 등록은 간단하게 클릭으로 선택이 가능합니다.
++ 별점 등록은 JQuery로 이벤트를 주어 간단하게 클릭으로 선택 가능하도록 구현하였습니다.
    
   ![review_01](https://user-images.githubusercontent.com/85078379/149708208-ec99a886-6553-4e0d-8537-c65aaeded219.gif)
 
@@ -118,7 +119,7 @@
 ### Back-end
 + JAVA
 + Spring
-+ Oracle
++ Oracle DB
 
 ### Front-end
 + JavaScript / JQuery / Ajax
