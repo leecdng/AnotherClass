@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anotherclass.bitcamp.dao.user.UserClassDAO">
+	<select id="selectClassMapList" resultType="com.anotherclass.bitcamp.vo.user.ClassVO">
+		
+		select cl.class_no, class_name, class_price, member_id, (select nick from memberTbl m where m.member_id=cl.member_id) as nick, 
+		class_thumb, class_addr1, class_tag, (select category_name from category where category_no=ct.category1_no) as cateL_name, category_name,
+		
+		NVL((select count(*) cnt
+		from classTbl c join classLike l
+		on c.class_no=l.class_no
+		group by c.class_no
+		having c.class_no=cl.class_no), 0) as like_cnt,
+		
+		NVL((select avg(star) star
+		from reviewTbl r join orderTbl o
+		on r.order_no = o.order_no
+		join classoption co on o.class_option_no = co.class_option_no
+		join classTbl cs on co.class_no = cs.class_no
+		group by cs.class_no
+		having cs.class_no=cl.class_no), 0) as star_avg
+		
+		from classTbl cl join category ct
+		on cl.category_no = ct.category_no 
+		where (class_name like '%'||#{keyword, jdbcType=VARCHAR}||'%' or class_tag like '%'||#{keyword, jdbcType=VARCHAR}||'%' or (select nick from memberTbl m where m.member_id=cl.member_id) like '%'||#{keyword, jdbcType=VARCHAR}||'%')
+		and class_addr1 like '%'||#{local, jdbcType=VARCHAR}||'%'
+		<choose>
+			<when test='cateL_name!=""'>and (select category_name from category where category_no=ct.category1_no)=#{cateL_name, jdbcType=VARCHAR}</when>
+			<when test='category_name!=""'>and category_name=#{category_name, jdbcType=VARCHAR}</when>
+		</choose>
+		order by star_avg desc, like_cnt desc
+		
+	</select>
+
+</mapper>

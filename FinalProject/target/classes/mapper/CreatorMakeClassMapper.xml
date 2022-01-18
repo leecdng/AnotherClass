@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anotherclass.bitcamp.dao.creator.MakeClassDAO">
+	<insert id="makeClassApply" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorMakeClassVO" >
+		insert into classTbl(class_no, class_name, class_info, class_price, member_id, class_thumb, class_content, class_img_file, class_post_no, class_addr1, class_addr2, max_headcount, category_no, request, progress, class_writedate, class_tag)
+		values(class_sq.nextval, #{class_name}, #{class_info}, #{class_price}, #{member_id}, #{class_thumb}, #{class_content}, 'ddd.jpg', #{class_post_no}, #{class_addr1}, #{class_addr2}, #{max_headcount}, #{category_no}, 0, 0, sysdate, #{class_tag})
+		<selectKey keyProperty="class_no" resultType="int" order="AFTER">
+			select class_sq.currval from dual
+		</selectKey>
+		
+	</insert>
+	
+	<select id="makeClassCategoryL" resultType="com.anotherclass.bitcamp.vo.creator.CreatorClassCategoryVO">
+	<![CDATA[
+		select category_name, category1_no from category where category_sort=0 order by category_no asc
+	]]>
+	</select>
+	<select id="makeClassCategoryS" resultType="com.anotherclass.bitcamp.vo.creator.CreatorClassCategoryVO">
+	<![CDATA[
+		select category_name, category_no from category where category_sort=1 and category1_no=#{category1_no} order by category_no asc
+	]]>
+	</select>
+	<insert id="makeClassApplyDateTime" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorMakeClassDateTimeVO">
+	<![CDATA[
+		insert into classoption(class_option_no, class_no, start_date, end_date, all_headcount, cancel, cancel_reason) values(class_option_sq.nextval, #{class_no}, to_date(#{start_date},'yyyy-MM-DD HH24:mi'), to_date(#{end_date},'yyyy-MM-DD HH24:mi'), 0, 0, null)
+	]]>
+	</insert>
+	<select id="creatorChannel" resultType="com.anotherclass.bitcamp.vo.user.ClassListVO">
+	<![CDATA[
+		select creator_content, creator_content_img from creator where member_id = #{member_id}
+	]]>
+	</select>
+	<select id="modifyClassInfo" resultType="com.anotherclass.bitcamp.vo.creator.CreatorMakeClassVO">
+	<![CDATA[
+		select class_no, class_name, class_info, class_price, member_id, class_thumb,
+		 class_content, class_img_file, class_post_no, class_addr1, class_addr2,
+		  max_headcount, category_no, request, progress, class_writedate, class_tag
+		  from classtbl where class_no = #{class_no}
+	]]>
+	</select>
+	<update id="putCreatorProfile" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorMakeClassVO" >
+	<![CDATA[
+		update creator set creator_content = #{creator_content},creator_content_img=#{creator_content_img}
+		 where member_id = #{member_id}
+	]]>
+	</update>
+	
+	<update id="modifyClassOk" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorMakeClassVO" >
+	<![CDATA[
+		update classtbl set class_name=#{class_name}, class_info=#{class_info}, class_price=#{class_price}, class_thumb=#{class_thumb}, class_content=#{class_content},
+		 class_img_file='ddd.jpg', class_post_no=#{class_post_no}, class_addr1=#{class_addr1}, class_addr2=#{class_addr2}, max_headcount=#{max_headcount}, 
+		 category_no=#{category_no}, request=0, progress=0, class_writedate=sysdate, class_tag=#{class_tag} where class_no = #{class_no}
+	]]>
+	</update>
+	<delete id="deleteClass" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorMakeClassVO">
+	<![CDATA[
+		delete from classtbl where class_no= ${class_no}
+	]]>
+	</delete>
+</mapper>

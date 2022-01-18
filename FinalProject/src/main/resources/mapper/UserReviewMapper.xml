@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anotherclass.bitcamp.dao.user.UserReviewDAO">
+	<insert id="insertReview" parameterType="com.anotherclass.bitcamp.vo.user.ReviewVO">
+		<![CDATA[
+			insert into reviewTbl values(review_sq.nextval, #{order_no}, #{content, jdbcType=VARCHAR}, #{img1, jdbcType=VARCHAR}, #{img2, jdbcType=VARCHAR}, #{img3, jdbcType=VARCHAR}, #{star}, sysdate)
+		]]>
+	</insert>
+	<select id="selectReviewClass" resultType="com.anotherclass.bitcamp.vo.user.ClassVO">
+		<![CDATA[
+			select c.class_thumb, m.nick, c.class_name, c.class_price, o.member_id
+			from orderTbl o join classoption co
+			on co.class_option_no = o.class_option_no
+			join classTbl c
+			on c.class_no=co.class_no
+			join memberTbl m
+			on c.member_id = m.member_id
+			where o.order_no=#{param1} and o.member_id=#{param2}
+		]]>
+	</select>
+	<select id="selectMyReview" resultType="com.anotherclass.bitcamp.vo.user.ReviewVO">
+		<![CDATA[
+			select *
+			from (select *
+			from (select review_no, r.order_no, content, img1, star, to_char(writedate, 'YYYY/MM/DD') writedate, m.member_id, member_img, c.class_no, c.class_name
+			from reviewTbl r join orderTbl o
+			on r.order_no=o.order_no
+			join memberTbl m
+			on o.member_id=m.member_id
+			join classoption co
+			on o.class_option_no=co.class_option_no
+			join classTbl c
+			on co.class_no = c.class_no
+			where o.member_id=#{member_id, jdbcType=VARCHAR}
+			order by review_no desc) rTbl
+			where rownum <= (#{onePageRecord} * #{nowPage}) order by review_no asc)
+			where rownum <= #{nowPageRecord} order by review_no desc
+		]]>
+	</select>
+	<select id="countTotalMyReview" resultType="com.anotherclass.bitcamp.vo.user.ReviewVO">
+		<![CDATA[
+			select count(review_no) totalRecord
+			from reviewTbl r
+			join orderTbl o
+			on r.order_no=o.order_no
+			where o.member_id=#{member_id}
+		]]>
+	</select>
+	<select id="selectClassReview" resultType="com.anotherclass.bitcamp.vo.user.ReviewVO">
+		<![CDATA[
+			select *
+			from (select *
+			from (select review_no, r.order_no, content, r.img1, star, to_char(writedate, 'YYYY/MM/DD') writedate, m.member_id, member_img, co.class_no
+			from reviewTbl r join orderTbl o
+			on r.order_no=o.order_no
+			join memberTbl m
+			on o.member_id=m.member_id
+			join classoption co
+			on o.class_option_no=co.class_option_no
+			where co.class_no=#{class_no}
+			order by review_no desc) rTbl
+			where rownum <= (#{onePageRecord} * #{nowPage}) order by review_no asc)
+			where rownum <= #{nowPageRecord} order by review_no desc
+		]]>
+	</select>
+	<select id="countTotalClassReview" resultType="com.anotherclass.bitcamp.vo.user.ReviewVO">
+		<![CDATA[
+			select count(review_no) totalRecord
+			from reviewTbl r
+			join orderTbl o
+			on r.order_no=o.order_no
+			join classoption co
+			on o.class_option_no=co.class_option_no
+			where co.class_no=#{param1}
+		]]>
+	</select>
+	<insert id="insertReviewComment" parameterType="com.anotherclass.bitcamp.vo.user.ReviewComVO" useGeneratedKeys="false">
+		insert into reviewCom values(review_com_sq.nextval, #{review_no}, #{member_id, jdbcType=VARCHAR}, 
+		<choose>
+			<when test='com_no1==0'>review_com_sq.nextval, </when>
+			<when test='com_no1!=0'>#{com_no1}, </when>
+		</choose>
+		#{com_no2}, #{reply, jdbcType=VARCHAR}, sysdate, 0, 0)
+		<selectKey keyProperty="review_com_no" resultType="int" order="AFTER">
+			select review_com_sq.currval from dual
+		</selectKey>
+	</insert>
+	<select id="selectReviewComment" resultType="com.anotherclass.bitcamp.vo.user.ReviewComVO">
+		select review_com_no, review_no, rc.member_id, m.member_img, com_no1, com_no2, reply, to_char(writedate, 'YY/MM/DD HH24:MI') writedate, delete_sort
+		from reviewCom rc
+		join memberTbl m
+		on m.member_id=rc.member_id
+		where review_no=#{review_no}
+		<if test='review_com_no!=0'>and review_com_no=#{review_com_no}</if>
+		order by review_no desc, com_no1 asc, review_com_no asc
+	</select>
+	<select id="countReplyCheck" resultType="int">
+		select NVL(sum(count(review_com_no)), 0) cnt
+		from reviewCom
+		where com_no2=1
+		group by com_no1
+		having com_no1=#{param1}
+	</select>
+	<delete id="deleteReviewComment" parameterType="com.anotherclass.bitcamp.vo.user.ReviewComVO">
+		delete from reviewCom
+		where review_com_no=#{review_com_no} and member_id=#{member_id}
+	</delete>
+	<update id="updateDelReviewComment" parameterType="com.anotherclass.bitcamp.vo.user.ReviewComVO">
+		update reviewCom set delete_sort=1 
+		where delete_sort=0 and review_com_no=#{review_com_no} and member_id=#{member_id}
+	</update>
+	<select id="selectCreatorClass" resultType="com.anotherclass.bitcamp.vo.user.ClassVO">
+		select member_id, class_no, class_name 
+		from classTbl
+		where member_id=#{param1}
+		order by class_no asc
+	</select>
+</mapper>

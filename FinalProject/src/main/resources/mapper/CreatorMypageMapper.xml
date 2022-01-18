@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.anotherclass.bitcamp.dao.creator.CreatorMypageMyinformationDAO">
+  	<select id="MemberInfo" resultType="com.anotherclass.bitcamp.register.RegisterVO" parameterType="String">
+  		<![CDATA[	
+		  	select member_id, member_name, member_tel, member_email, post_no, addr1, addr2, nick, member_img, sns_type from memberTbl where member_id = #{param1}
+		]]>
+  	</select>
+  	<update id="MemberInfoEdit" parameterType="com.anotherclass.bitcamp.register.RegisterVO" >
+  		<![CDATA[
+  			update memberTbl set nick = #{nick}, member_tel = #{member_tel}, member_email = #{member_email}, post_no = trim(#{post_no}), addr1 = #{addr1} , addr2 = #{addr2}, member_img = #{member_img}
+  			where member_id = #{member_id}
+  		]]>
+  	</update>
+  	<select id="pwdCheck" parameterType="com.anotherclass.bitcamp.register.RegisterVO" resultType="com.anotherclass.bitcamp.register.RegisterVO" statementType="CALLABLE">
+		call pw_check_in(
+			#{member_pw, mode=IN, jdbcType=VARCHAR, javaType=String},
+			#{member_id, mode=IN, jdbcType=VARCHAR, javaType=String},
+			#{additional_information_one, mode=OUT, jdbcType=VARCHAR, javaType=String} 
+		)
+	</select>
+	<update id="passwordChange" parameterType="com.anotherclass.bitcamp.register.RegisterVO" >
+		<![CDATA[
+			update membertbl set member_pw = #{member_pw} where member_id = #{member_id}
+		]]>
+	</update>
+  </mapper>

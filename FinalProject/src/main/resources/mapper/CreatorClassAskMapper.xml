@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.anotherclass.bitcamp.dao.creator.CreatorClassAskDAO">
+	<select id="totalRecordCount" resultType="int" >
+
+		  select count(a.class_qna_no) cnt
+		 from classqna a ,classtbl b
+		 where a.class_no <![CDATA[=]]> b.class_no        
+		<if test="searchWord !=null">
+           and b.class_name LIKE '%'||#{searchWord}||'%'  
+        </if>
+		
+	</select>
+	
+	<select id="boardPageSelect" resultType="com.anotherclass.bitcamp.vo.creator.CreatorCAskVO" >
+		select * from  
+			(select * from  
+				(select a.class_qna_no, a.class_no, a.classqna_member_id, a.classqna_content, to_char(a.classqna_writedate,'YY-MM-DD') classqna_writedate, b.class_name
+				from classqna a  , classtbl b
+				where a.class_no = b.class_no
+				<if test="searchWord !=null">
+				and b.class_name LIKE '%'||#{searchWord}||'%'
+				</if>               
+				order by a.class_qna_no desc)
+			where rownum<![CDATA[<=]]>#{nowPage}*#{pageRecord} order by class_qna_no asc)
+		where rownum<![CDATA[<=]]>#{pageRecord} order by class_qna_no desc 	
+	</select>
+ 	<select id="CAReplyCheck" resultType="int">
+  		<![CDATA[
+  			select count(*)
+			from classQnaCom
+			where class_qna_no = #{param1}
+  		]]> 
+  	</select>
+  		<select id="CAContent" resultType="com.anotherclass.bitcamp.vo.creator.CreatorCAskVO">
+  		<![CDATA[
+  			select a.class_qna_no, a.class_no, a.classqna_member_id, a.classqna_content,to_char( a.classqna_writedate,'yyyy-MM-DD HH:MM' ) classqna_writedate, a.classqna_com_sec ,b.class_name
+			from classQna a, classtbl b
+			where a.class_no = b.class_no
+            and class_qna_no =  #{param1}
+  		]]> 
+  	</select>
+  	<select id="CAReplyContent" resultType="com.anotherclass.bitcamp.vo.creator.CreatorCAskVO">
+  		<![CDATA[
+  		select class_qna_com_no , class_qna_no,classqnacom_member_id, com_no1, com_no2, classqnacom_reply,to_char ( classqnacom_writedate , 'yyyy-MM-DD HH:MM') classqnacom_writedate, classqnacom_com_sec, classqnacom_delete_sort
+		from classQnaCom
+		where class_qna_no =#{param1}
+		]]> 
+  	</select>
+
+  	<insert id="CAReplyWrite" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorCAskVO">
+	  	<![CDATA[
+	  		insert into  classqnacom values(class_qna_com_sq.nextval, #{class_qna_no}, #{classqnacom_member_id},class_qna_com_sq.nextval,0,#{classqnacom_reply},sysdate,0,0)
+	  	]]> 
+  	</insert>
+  	<update id="CAReplyEdit" parameterType="com.anotherclass.bitcamp.vo.creator.CreatorCAskVO">
+	  	<![CDATA[
+	  		update  classqnacom  set classqnacom_reply  = #{classqnacom_reply}, classqnacom_writedate = sysdate 
+			where class_qna_no = #{class_qna_no}
+	  	]]> 
+  	</update>
+  	<delete id="CAReplyDel">
+	  	<![CDATA[
+	  		delete from classqnacom where  class_qna_com_no = #{param1}
+	  	]]>  	
+  	</delete>
+  	<select id="classlist2"  parameterType="com.anotherclass.bitcamp.vo.creator.ClassListVO" resultType="com.anotherclass.bitcamp.vo.creator.ClassListVO">
+  		  <![CDATA[
+  		  select class_no, class_name ,request, class_thumb
+		  from classtbl
+		  where member_id =#{param1}
+  		  ]]> 
+  	</select>
+  	  	<select id="ClasslikeCC" resultType="int">
+  		  <![CDATA[
+  		  SELECT COUNT(*) AS classlikecount
+		  FROM classlike 
+		  where class_no = #{param1}
+  		  ]]> 
+  	</select>
+  	  	<select id="ClassAskCC" resultType="int">
+  		  <![CDATA[
+  		    SELECT COUNT(*) AS classclasscount
+			FROM classqna 
+			where class_no =#{param1}
+  		  ]]> 
+  	</select>
+  
+</mapper>
