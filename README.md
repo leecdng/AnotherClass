@@ -64,8 +64,8 @@
   
   ![main1](https://user-images.githubusercontent.com/85078379/149463783-956efd0b-d03d-4283-b440-f94af6610108.gif)
 
-+ SQL을 사용하여 좋아요 수, 후기 별점 평균, 날짜 순 등으로 정렬한 데이터 추출했습니다.
-+ 카테고리와 서브카테고리 또한 Ajax을 이용하여 DB를 불러왔습니다.
++ SQL을 사용하여 좋아요 수, 후기 별점 평균, 날짜 순 등으로 정렬한 데이터를 추출했습니다.
++ 카테고리와 서브카테고리 또한 Ajax을 사용하여 데이터를 조회했습니다.
   
   ![main_cate2](https://user-images.githubusercontent.com/85078379/149464116-d34405a2-41dc-4f89-b541-fa8607477358.gif)
 
